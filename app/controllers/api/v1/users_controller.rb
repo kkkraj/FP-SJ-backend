@@ -25,6 +25,18 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
+    def update
+        user = User.find_by(id: params[:id])
+        user.update(user_params)
+        render json: {message: "User Account has been Successfully Updated"}
+    end
+
+    def destroy
+        user = User.find_by(id: params[:id])
+        user.destroy()
+        render json: {message: "User Account has been Deleted!"}
+    end
+
     private
     def user_params
         params.require(:user).permit(:name, :username, :password)

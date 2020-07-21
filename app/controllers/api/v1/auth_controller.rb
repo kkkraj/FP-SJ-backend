@@ -7,7 +7,7 @@ class Api::V1::AuthController < ApplicationController
         if user && user.authenticate(params[:password])
           @token = encode_token(user)
           
-          render json: {id: user.id, username: user.username, jwt: @token}, status: :accepted
+          render json: {id: user.id, name: user.name, username: user.username, jwt: @token}, status: :accepted
         else
           render json: {error: 'user could not be found'}, status: :unauthorized
         end
@@ -15,7 +15,7 @@ class Api::V1::AuthController < ApplicationController
     
     def show
         if logged_in?
-          render json: { id: current_user.id, username: current_user.username }
+          render json: { id: current_user.id, name: current_user.name, username: current_user.username }
         else
           render json: {error: 'user could not be found'}, status: 401
         end
