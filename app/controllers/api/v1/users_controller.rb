@@ -26,9 +26,9 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def update
-        user = User.find_by(id: params[:id])
+        user = User.find_by(id: current_user.id)
         user.update(user_params)
-        render json: {message: "User Account has been Successfully Updated"}
+        render json: {message: "User Account has been Updated"}
     end
 
     def destroy
