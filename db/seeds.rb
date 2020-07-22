@@ -8,5 +8,8 @@
 
 User.destroy_all
 
-user1 = User.create(name:"Khnaittha Krajangjaem", username:"KhanitthaK15", password:"1115")
-user2 = User.create(name:"Thorin Wilder", username:"tbtbbus", password:"1234")
+user1 = User.create(name:"Khnaittha Krajangjaem", email:"kkkk@gmail.com", username:"KhanitthaK15", password:"1115")
+user2 = User.create(name:"Thorin Wilder",email:"tbtbtb@yahoo.com", username:"tbtbbus", password:"1234")
+
+diary1 = DiaryEntry.create(content:"Today I'm Happy", user_id: user2.id)
+
