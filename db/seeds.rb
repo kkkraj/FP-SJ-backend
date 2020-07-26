@@ -7,6 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
+DiaryEntry.destroy_all
+Mood.destroy_all
+Activity.destroy_all
 
 user1 = User.create(name:"Khnaittha Krajangjaem", email:"kkkk@gmail.com", username:"KhanitthaK15", password:"1115")
 user2 = User.create(name:"Thorin Wilder",email:"tbtbtb@yahoo.com", username:"tbtbbus", password:"1234")
@@ -22,5 +25,27 @@ mood6 = Mood.create(mood_name:"Angry")
 mood7 = Mood.create(mood_name:"Sad")
 mood8 = Mood.create(mood_name:"Stressed")
 mood9 = Mood.create(mood_name:"Overwhelmed")
+
+activity1 = Activity.create(activity_name:"Sport")
+activity2 = Activity.create(activity_name:"Food")
+activity3 = Activity.create(activity_name:"Work")
+activity4 = Activity.create(activity_name:"School")
+activity5 = Activity.create(activity_name:"Social")
+activity6 = Activity.create(activity_name:"Self-Care")
+activity7 = Activity.create(activity_name:"Shopping")
+activity8 = Activity.create(activity_name:"Cooking")
+activity9 = Activity.create(activity_name:"Entertainment")
+activity10 = Activity.create(activity_name:"Travel")
+activity11 = Activity.create(activity_name:"Reading")
+activity12 = Activity.create(activity_name:"Relax")
+activity13 = Activity.create(activity_name:"Outdoor")
+activity14 = Activity.create(activity_name:"Art")
+activity15 = Activity.create(activity_name:"Housework")
+activity16 = Activity.create(activity_name:"Performance")
+activity17 = Activity.create(activity_name:"Parenting")
+activity18 = Activity.create(activity_name:"Other")
+
+
+
 
 

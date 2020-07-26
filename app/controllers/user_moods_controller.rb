@@ -1,7 +1,7 @@
 class UserMoodsController < ApplicationController
     def index
-        @user_moods = UserMood.all
-        render json: @user_moods
+        user_moods = UserMood.all
+        render json: user_moods
     end
 
     def create
