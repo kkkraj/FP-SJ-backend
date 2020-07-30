@@ -7,14 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
-DiaryEntry.destroy_all
 Mood.destroy_all
 Activity.destroy_all
 
 user1 = User.create(name:"Khnaittha Krajangjaem", email:"kkkk@gmail.com", username:"KhanitthaK15", password:"1115")
 user2 = User.create(name:"Thorin Wilder",email:"tbtbtb@yahoo.com", username:"tbtbbus", password:"1234")
-
-diary1 = DiaryEntry.create(content:"Today I'm Happy", user_id: user1.id)
 
 mood1 = Mood.create(mood_name:"Happy", mood_url:"https://i.imgur.com/itD13Tf.png")
 mood2 = Mood.create(mood_name:"Good", mood_url:"https://i.imgur.com/rkVgnSl.png")

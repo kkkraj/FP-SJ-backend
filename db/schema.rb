@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_210634) do
   end
 
   create_table "diary_entries", force: :cascade do |t|
+    t.string "title"
     t.string "content"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
