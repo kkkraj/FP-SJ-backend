@@ -7,45 +7,34 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
-DiaryEntry.destroy_all
 Mood.destroy_all
 Activity.destroy_all
 
 user1 = User.create(name:"Khnaittha Krajangjaem", email:"kkkk@gmail.com", username:"KhanitthaK15", password:"1115")
 user2 = User.create(name:"Thorin Wilder",email:"tbtbtb@yahoo.com", username:"tbtbbus", password:"1234")
 
-diary1 = DiaryEntry.create(content:"Today I'm Happy", user_id: user1.id)
+mood1 = Mood.create(mood_name:"Happy", mood_url:"https://i.imgur.com/itD13Tf.png")
+mood2 = Mood.create(mood_name:"Good", mood_url:"https://i.imgur.com/rkVgnSl.png")
+mood3 = Mood.create(mood_name:"Calm", mood_url:"https://i.imgur.com/K7Vhmij.png")
+mood4 = Mood.create(mood_name:"Cool", mood_url:"https://i.imgur.com/tHXVEnN.png")
+mood5 = Mood.create(mood_name:"Angry", mood_url:"https://i.imgur.com/WNczyw3.png")
+mood6 = Mood.create(mood_name:"Sad", mood_url:"https://i.imgur.com/y8PbDup.png")
+mood7 = Mood.create(mood_name:"Overwhelmed", mood_url:"https://i.imgur.com/vQinwp8.png")
+mood8 = Mood.create(mood_name:"Stressed", mood_url:"https://i.imgur.com/3q0xzl3.png")
 
-mood1 = Mood.create(mood_name:"Happy")
-mood2 = Mood.create(mood_name:"Silly")
-mood3 = Mood.create(mood_name:"Good")
-mood4 = Mood.create(mood_name:"Peaceful")
-mood5 = Mood.create(mood_name:"Neutral")
-mood6 = Mood.create(mood_name:"Angry")
-mood7 = Mood.create(mood_name:"Sad")
-mood8 = Mood.create(mood_name:"Stressed")
-mood9 = Mood.create(mood_name:"Overwhelmed")
-
-activity1 = Activity.create(activity_name:"Sport")
-activity2 = Activity.create(activity_name:"Food")
-activity3 = Activity.create(activity_name:"Work")
-activity4 = Activity.create(activity_name:"School")
-activity5 = Activity.create(activity_name:"Social")
-activity6 = Activity.create(activity_name:"Self-Care")
-activity7 = Activity.create(activity_name:"Shopping")
-activity8 = Activity.create(activity_name:"Cooking")
-activity9 = Activity.create(activity_name:"Entertainment")
-activity10 = Activity.create(activity_name:"Travel")
-activity11 = Activity.create(activity_name:"Reading")
-activity12 = Activity.create(activity_name:"Relax")
-activity13 = Activity.create(activity_name:"Outdoor")
-activity14 = Activity.create(activity_name:"Art")
-activity15 = Activity.create(activity_name:"Housework")
-activity16 = Activity.create(activity_name:"Performance")
-activity17 = Activity.create(activity_name:"Parenting")
-activity18 = Activity.create(activity_name:"Other")
-
-
-
-
-
+activity1 = Activity.create(activity_name:"Exercise", activity_url:"https://i.imgur.com/3I65ivR.png")
+activity2 = Activity.create(activity_name:"Food", activity_url:"https://i.imgur.com/rFY4EPt.png")
+activity3 = Activity.create(activity_name:"Work", activity_url:"https://i.imgur.com/Mm81ZjJ.png")
+activity4 = Activity.create(activity_name:"School", activity_url:"https://i.imgur.com/BeHs4k1.png")
+activity5 = Activity.create(activity_name:"Social", activity_url:"https://i.imgur.com/wE4fGdx.png")
+activity6 = Activity.create(activity_name:"Self-Care", activity_url:"https://i.imgur.com/VAQRWTv.png")
+activity7 = Activity.create(activity_name:"Shopping", activity_url:"https://i.imgur.com/HlHEBEf.png")
+activity8 = Activity.create(activity_name:"Cooking", activity_url:"https://i.imgur.com/NPumLVA.png")
+activity9 = Activity.create(activity_name:"Entertainment", activity_url:"https://i.imgur.com/3laGTKH.png")
+activity10 = Activity.create(activity_name:"Travel", activity_url:"https://i.imgur.com/6yaGHE1.png")
+activity11 = Activity.create(activity_name:"Reading", activity_url:"https://i.imgur.com/VpJTway.png")
+activity12 = Activity.create(activity_name:"Relax", activity_url:"https://i.imgur.com/EByeg2y.png")
+activity13 = Activity.create(activity_name:"Outdoor", activity_url:"https://i.imgur.com/K14KMSt.png")
+activity14 = Activity.create(activity_name:"Kids", activity_url:"https://i.imgur.com/0qPOr0y.png")
+activity15 = Activity.create(activity_name:"Housework", activity_url:"https://i.imgur.com/q08KUEx.png")
+activity16 = Activity.create(activity_name:"Other", activity_url:"https://i.imgur.com/Hc3X0eT.png")

@@ -21,6 +21,6 @@ class DiaryEntriesController < ApplicationController
 
     private
     def diary_entry_params
-        params.require(:diary_entry).permit(:content, :user_id)
+        params.require(:diary_entry).permit(:title, :content, :user_id)
     end
 end

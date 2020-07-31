@@ -17,11 +17,13 @@ ActiveRecord::Schema.define(version: 2020_07_21_210634) do
 
   create_table "activities", force: :cascade do |t|
     t.string "activity_name"
+    t.string "activity_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "diary_entries", force: :cascade do |t|
+    t.string "title"
     t.string "content"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -30,6 +32,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_210634) do
 
   create_table "moods", force: :cascade do |t|
     t.string "mood_name"
+    t.string "mood_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
