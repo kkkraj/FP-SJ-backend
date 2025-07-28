@@ -1,43 +1,62 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
-    # before_action :authorized
+  include ActionController::HttpAuthentication::Token::ControllerMethods
 
-    def encode_token(payload)
-        JWT.encode(payload, 'mysecret')
-    end
-    
-    def auth_header
-        request.headers['Authorization']
-    end
+  before_action :authorized
 
-    def decoded_token
-        if auth_header
-            token = auth_header
-            begin
-                JWT.decode(token, 'mysecret', true, { :algorithm => 'HS256' })
-            rescue JWT::DecodeError
-                [{}]
-            end
-        end
-    end
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
+  rescue_from JWT::DecodeError, with: :unauthorized
+  rescue_from JWT::ExpiredSignature, with: :unauthorized
 
-    def current_user
-        if decoded_token
-            user_id = decoded_token[0]['user_id']
-            @user = User.find_by(id: user_id)
-        else
-            nil
-        end
-    end
+  private
 
-    def user_id
-        decoded_token.first["user_id"]
-    end
+  def encode_token(payload)
+    JWT.encode(payload, jwt_secret, 'HS256')
+  end
 
-    def logged_in?
-        !!current_user
-    end
+  def auth_header
+    request.headers['Authorization']
+  end
 
-    def authorized
-        render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
-    end
+  def decoded_token
+    return unless auth_header
+
+    token = auth_header.split(' ').last
+    JWT.decode(token, jwt_secret, true, { algorithm: 'HS256' })
+  rescue JWT::DecodeError, JWT::ExpiredSignature
+    nil
+  end
+
+  def current_user
+    return unless decoded_token
+
+    user_id = decoded_token.first['user_id']
+    @current_user ||= User.find_by(id: user_id)
+  end
+
+  def logged_in?
+    current_user.present?
+  end
+
+  def authorized
+    render json: { error: 'Please log in' }, status: :unauthorized unless logged_in?
+  end
+
+  def jwt_secret
+    Rails.application.credentials.jwt_secret || ENV['JWT_SECRET'] || 'fallback_secret'
+  end
+
+  def not_found(exception)
+    render json: { error: exception.message }, status: :not_found
+  end
+
+  def unprocessable_entity(exception)
+    render json: { error: exception.record.errors.full_messages }, status: :unprocessable_entity
+  end
+
+  def unauthorized(exception = nil)
+    render json: { error: 'Unauthorized' }, status: :unauthorized
+  end
 end

@@ -1,0 +1,30 @@
+# Database Configuration
+DATABASE_URL: postgresql://postgres:password@localhost:5432/diary_backend_development
+POSTGRES_HOST: localhost
+POSTGRES_PORT: 5432
+POSTGRES_DB: diary_backend_development
+POSTGRES_USER: postgres
+POSTGRES_PASSWORD: password
+
+# JWT Configuration
+JWT_SECRET: <%= SecureRandom.hex(64) %>
+JWT_EXPIRATION: 86400
+
+# Rails Configuration
+RAILS_ENV: development
+RAILS_SERVE_STATIC_FILES: true
+RAILS_LOG_TO_STDOUT: true
+
+# CORS Configuration
+ALLOWED_ORIGINS: http://localhost:3000,http://localhost:3001
+
+# Redis Configuration (if using)
+REDIS_URL: redis://localhost:6379/0
+
+# Application Configuration
+APP_HOST: localhost
+APP_PORT: 3000
+
+# Seed User Passwords (for development only)
+SEED_USER1_PASSWORD: secure_password_123
+SEED_USER2_PASSWORD: secure_password_456 
