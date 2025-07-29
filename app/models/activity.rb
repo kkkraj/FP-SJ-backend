@@ -4,8 +4,7 @@ class Activity < ApplicationRecord
   has_many :user_activities, dependent: :destroy
   has_many :users, through: :user_activities
 
-  validates :name, presence: true, uniqueness: true
-  validates :description, length: { maximum: 500 }
+  validates :activity_name, presence: true, uniqueness: true
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { order(:name) }

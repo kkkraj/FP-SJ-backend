@@ -22,7 +22,7 @@ Bundler.require(*Rails.groups)
 module DiaryBackend
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -37,24 +37,5 @@ module DiaryBackend
     # Use timezone-aware timestamps
     config.time_zone = 'UTC'
     config.active_record.default_timezone = :utc
-
-    # Enable per-form CSRF tokens
-    config.action_controller.per_form_csrf_tokens = true
-
-    # Enable origin-checking CSRF mitigation
-    config.action_controller.forgery_protection_origin_check = true
-
-    # Disable per-form CSRF tokens for API-only apps
-    config.action_controller.per_form_csrf_tokens = false
-
-    # Disable origin-checking CSRF mitigation for API-only apps
-    config.action_controller.forgery_protection_origin_check = false
-
-    # Use cookies for session storage
-    config.session_store :cookie_store, key: '_diary_backend_session'
-
-    # Use cookies for flash messages
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use config.session_store, config.session_options
   end
 end

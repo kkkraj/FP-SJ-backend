@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2020_07_21_210634) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "activities", force: :cascade do |t|
     t.string "activity_name"
     t.string "activity_url"
