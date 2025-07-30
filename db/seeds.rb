@@ -14,15 +14,15 @@ Activity.destroy_all
 
 # Create users with secure passwords (use environment variables in production)
 user1 = User.create(
-  name: "Khnaittha Krajangjaem", 
-  email: "kkkk@gmail.com", 
-  username: "KhanitthaK15", 
+  name: "Jamie L.", 
+  email: "quiet.pages@example.com", 
+  username: "quietpages", 
   password: ENV.fetch("SEED_USER1_PASSWORD", "secure_password_123")
 )
 user2 = User.create(
-  name: "Thorin Wilder",
-  email: "tbtbtb@yahoo.com", 
-  username: "tbtbbus", 
+  name: "Alex Ray",
+  email: "alex.ray@example.com", 
+  username: "mindfulwriter", 
   password: ENV.fetch("SEED_USER2_PASSWORD", "secure_password_456")
 )
 
