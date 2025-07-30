@@ -6,14 +6,16 @@ class Api::V1::AuthController < ApplicationController
   def create
     user = User.find_by(username: params[:username]&.downcase)
 
-    if user&.authenticate(params[:password])
+    if user.nil?
+      render json: { error: 'User not found' }, status: :not_found
+    elsif user.authenticate(params[:password])
       token = encode_token({ user_id: user.id, exp: 24.hours.from_now.to_i })
       render json: {
         user: UserSerializer.new(user).as_json,
         token: token
       }, status: :ok
     else
-      render json: { error: 'Invalid username or password' }, status: :unauthorized
+      render json: { error: 'Invalid password' }, status: :unauthorized
     end
   end
 
