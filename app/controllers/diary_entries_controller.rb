@@ -10,8 +10,14 @@ class DiaryEntriesController < ApplicationController
     end
 
     def create
-        diary_entry = DiaryEntry.create(diary_entry_params)
-        render json: { diary_entry: DiaryEntrySerializer.new(diary_entry) }, status: :created
+        diary_entry = DiaryEntry.new(diary_entry_params)
+        diary_entry.entry_date = Date.current
+        
+        if diary_entry.save
+            render json: { diary_entry: DiaryEntrySerializer.new(diary_entry) }, status: :created
+        else
+            render json: { error: diary_entry.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     def destroy

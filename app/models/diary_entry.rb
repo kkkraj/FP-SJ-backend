@@ -3,7 +3,7 @@
 class DiaryEntry < ApplicationRecord
   belongs_to :user
 
-  validates :content, presence: true, length: { maximum: 10_000 }
+  validates :content, length: { maximum: 10_000 }, allow_blank: true
   validates :title, presence: true, length: { maximum: 255 }
   validates :entry_date, presence: true
 

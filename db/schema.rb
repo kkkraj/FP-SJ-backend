@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_210634) do
+ActiveRecord::Schema.define(version: 2025_07_29_214947) do
 
   create_table "activities", force: :cascade do |t|
     t.string "activity_name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_210634) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "entry_date"
   end
 
   create_table "moods", force: :cascade do |t|
@@ -39,6 +40,8 @@ ActiveRecord::Schema.define(version: 2020_07_21_210634) do
     t.integer "activity_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "activity_date"
+    t.integer "duration"
   end
 
   create_table "user_moods", force: :cascade do |t|
@@ -46,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_210634) do
     t.integer "mood_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "mood_date"
   end
 
   create_table "users", force: :cascade do |t|

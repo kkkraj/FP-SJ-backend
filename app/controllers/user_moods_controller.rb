@@ -5,7 +5,14 @@ class UserMoodsController < ApplicationController
     end
 
     def create
-        user_mood = UserMood.create(user_mood_params)
+        user_mood = UserMood.new(user_mood_params)
+        user_mood.mood_date = Date.current
+        
+        if user_mood.save
+            render json: user_mood, status: :created
+        else
+            render json: { error: user_mood.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     private
