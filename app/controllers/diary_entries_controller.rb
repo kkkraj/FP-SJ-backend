@@ -22,7 +22,11 @@ class DiaryEntriesController < ApplicationController
 
     def destroy
         diary_entry = DiaryEntry.find_by(id: params[:id])
-        diary_entry.destroy()
+        if diary_entry&.destroy
+            render json: { message: "Diary entry deleted successfully" }, status: :ok
+        else
+            render json: { error: "Diary entry not found or could not be deleted" }, status: :not_found
+        end
     end
 
     private
