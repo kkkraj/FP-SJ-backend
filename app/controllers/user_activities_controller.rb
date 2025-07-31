@@ -15,6 +15,15 @@ class UserActivitiesController < ApplicationController
         end
     end
 
+    def destroy
+        @user_activity = UserActivity.find_by(id: params[:id])
+        if @user_activity&.destroy
+            render json: { message: 'User activity deleted successfully' }
+        else
+            render json: { error: 'User activity not found or could not be deleted' }, status: :not_found
+        end
+    end
+
     private
     def user_activity_params
         params.require(:user_activity).permit(:user_id, :activity_id, :duration)

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       # Authentication
       post '/login', to: 'auth#create'
+      post '/signup', to: 'users#create'  # Add explicit signup route
       get '/current_user', to: 'users#profile'
       
       # Resources
