@@ -1,7 +1,14 @@
 class UserActivitiesController < ApplicationController
     def index
-        user_activities = UserActivity.all
-        render json: user_activities
+        @user_activities = UserActivity.where(user_id: params[:user_id])
+        
+        if params[:start_date] && params[:end_date]
+            @user_activities = @user_activities.where(activity_date: params[:start_date]..params[:end_date])
+        elsif params[:date]
+            @user_activities = @user_activities.where("DATE(activity_date) = ?", params[:date])
+        end
+        
+        render json: @user_activities
     end
 
     def create

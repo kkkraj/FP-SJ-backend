@@ -1,7 +1,14 @@
 class UserMoodsController < ApplicationController
     def index
-        user_moods = UserMood.all
-        render json: user_moods
+        @user_moods = UserMood.where(user_id: params[:user_id])
+        
+        if params[:start_date] && params[:end_date]
+            @user_moods = @user_moods.where(mood_date: params[:start_date]..params[:end_date])
+        elsif params[:date]
+            @user_moods = @user_moods.where("DATE(mood_date) = ?", params[:date])
+        end
+        
+        render json: @user_moods
     end
 
     def create
