@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :moods, through: :user_moods
   has_many :user_activities, dependent: :destroy
   has_many :activities, through: :user_activities
+  has_many :diary_photos, dependent: :destroy
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :username, length: { minimum: 3, maximum: 50 }

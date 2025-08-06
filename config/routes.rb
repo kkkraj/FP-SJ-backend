@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :activities
       resources :user_moods, only: [:index, :show, :create, :update, :destroy]
       resources :user_activities, only: [:index, :show, :create, :update, :destroy]
+      resources :diary_photos
     end
   end
 
@@ -27,4 +28,5 @@ Rails.application.routes.draw do
   resources :moods
   resources :user_moods
   resources :diary_entries
+  resources :diary_photos
 end

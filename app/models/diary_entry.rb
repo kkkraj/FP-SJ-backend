@@ -2,6 +2,8 @@
 
 class DiaryEntry < ApplicationRecord
   belongs_to :user
+  
+  has_many :diary_photos, dependent: :destroy
 
   validates :content, length: { maximum: 10_000 }, allow_blank: true
   validates :title, length: { maximum: 255 }, allow_blank: true
