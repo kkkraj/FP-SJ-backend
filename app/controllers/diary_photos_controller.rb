@@ -40,14 +40,19 @@ class DiaryPhotosController < ApplicationController
   end
 
   def destroy
-    @diary_photo.destroy
-    head :no_content
+    if @diary_photo.destroy
+      render json: { message: 'Photo deleted successfully' }, status: :ok
+    else
+      render json: { errors: @diary_photo.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_diary_photo
     @diary_photo = current_user.diary_photos.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Photo not found' }, status: :not_found
   end
 
   def diary_photo_params

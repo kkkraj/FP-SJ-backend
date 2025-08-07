@@ -16,11 +16,16 @@ class DiaryPhoto < ApplicationRecord
   scope :by_date_range, ->(start_date, end_date) { where(created_at: start_date.beginning_of_day..end_date.end_of_day) }
   
   before_create :set_photo_date
+  before_destroy :purge_photo
   
   private
   
   def set_photo_date
     self.photo_date = Date.current
+  end
+  
+  def purge_photo
+    photo.purge if photo.attached?
   end
   
   def acceptable_photo
