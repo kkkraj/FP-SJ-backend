@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       # Authentication
       post '/login', to: 'auth#create'
       post '/signup', to: 'users#create'  # Add explicit signup route
+      post '/forgot_password', to: 'users#forgot_password'
       get '/current_user', to: 'users#profile'
       
       # Resources

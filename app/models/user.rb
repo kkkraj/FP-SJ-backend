@@ -10,12 +10,29 @@ class User < ApplicationRecord
   has_many :activities, through: :user_activities
   has_many :diary_photos, dependent: :destroy
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }
-  validates :username, length: { minimum: 3, maximum: 50 }
-  validates :username, format: { with: /\A[a-zA-Z0-9_]+\z/, message: 'can only contain letters, numbers, and underscores' }
+  validates :username, uniqueness: { case_sensitive: false }, allow_blank: true
+  validates :username, length: { minimum: 3, maximum: 50 }, allow_blank: true
+  validates :username, format: { with: /\A[a-zA-Z0-9_]+\z/, message: 'can only contain letters, numbers, and underscores' }, allow_blank: true
   validates :password, length: { minimum: 6 }, if: :password_required?
 
   before_save :downcase_username
+
+  # Password reset functionality
+  def generate_password_reset_token
+    self.reset_password_token = SecureRandom.urlsafe_base64
+    self.reset_password_sent_at = Time.current
+    save!
+  end
+
+  def password_reset_token_valid?
+    reset_password_sent_at && reset_password_sent_at > 1.hour.ago
+  end
+
+  def clear_password_reset_token
+    self.reset_password_token = nil
+    self.reset_password_sent_at = nil
+    save!
+  end
 
   private
 

@@ -16,13 +16,11 @@ Activity.destroy_all
 user1 = User.create(
   name: "Jamie L.", 
   email: "quiet.pages@example.com", 
-  username: "quietpages", 
   password: ENV.fetch("SEED_USER1_PASSWORD", "secure_password_123")
 )
 user2 = User.create(
   name: "Alex Ray",
   email: "alex.ray@example.com", 
-  username: "mindfulwriter", 
   password: ENV.fetch("SEED_USER2_PASSWORD", "secure_password_456")
 )
 

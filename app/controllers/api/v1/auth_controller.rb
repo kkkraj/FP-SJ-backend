@@ -4,7 +4,7 @@ class Api::V1::AuthController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def create
-    user = User.find_by(username: params[:username]&.downcase)
+    user = User.find_by(email: params[:email]&.downcase)
 
     if user.nil?
       render json: { error: 'User not found' }, status: :not_found
