@@ -25,11 +25,38 @@ class Api::V1::UsersController < ApplicationController
             return
         end
         
+        # Validate name length
+        if user_params[:name].length < 2
+            render json: { 
+                error: 'name_too_short',
+                message: 'Name must be at least 2 characters long' 
+            }, status: :unprocessable_entity
+            return
+        end
+        
+        if user_params[:name].length > 50
+            render json: { 
+                error: 'name_too_long',
+                message: 'Name must be less than 50 characters' 
+            }, status: :unprocessable_entity
+            return
+        end
+        
         # Check if email is present
         if user_params[:email].nil? || user_params[:email].empty?
             render json: { 
                 error: 'email_required',
                 message: 'Email is required' 
+            }, status: :unprocessable_entity
+            return
+        end
+        
+        # Validate email format
+        email_regex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+        unless user_params[:email].match?(email_regex)
+            render json: { 
+                error: 'invalid_email_format',
+                message: 'Please enter a valid email address' 
             }, status: :unprocessable_entity
             return
         end
@@ -57,6 +84,14 @@ class Api::V1::UsersController < ApplicationController
             render json: { 
                 error: 'password_too_short',
                 message: 'Password must be at least 6 characters long' 
+            }, status: :unprocessable_entity
+            return
+        end
+        
+        if user_params[:password].length > 128
+            render json: { 
+                error: 'password_too_long',
+                message: 'Password must be less than 128 characters' 
             }, status: :unprocessable_entity
             return
         end
