@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :activities, through: :user_activities
   has_many :diary_photos, dependent: :destroy
 
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
   validates :username, uniqueness: { case_sensitive: false }, allow_blank: true
   validates :username, length: { minimum: 3, maximum: 50 }, allow_blank: true
   validates :username, format: { with: /\A[a-zA-Z0-9_]+\z/, message: 'can only contain letters, numbers, and underscores' }, allow_blank: true

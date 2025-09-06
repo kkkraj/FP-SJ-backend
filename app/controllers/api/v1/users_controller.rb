@@ -18,19 +18,28 @@ class Api::V1::UsersController < ApplicationController
     def create
         # Check if password is present
         if user_params[:password].nil? || user_params[:password].empty?
-            render json: { error: 'Password is required' }, status: :unprocessable_entity
+            render json: { 
+                error: 'password_required',
+                message: 'Password is required' 
+            }, status: :unprocessable_entity
             return
         end
         
         # Validate password confirmation before creating user
         if user_params[:password] != user_params[:password_confirmation]
-            render json: { error: 'Password and password confirmation do not match' }, status: :unprocessable_entity
+            render json: { 
+                error: 'passwords_dont_match',
+                message: 'Password and password confirmation do not match' 
+            }, status: :unprocessable_entity
             return
         end
         
         # Validate password length
         if user_params[:password].length < 6
-            render json: { error: 'Password must be at least 6 characters long' }, status: :unprocessable_entity
+            render json: { 
+                error: 'password_too_short',
+                message: 'Password must be at least 6 characters long' 
+            }, status: :unprocessable_entity
             return
         end
         
@@ -39,7 +48,19 @@ class Api::V1::UsersController < ApplicationController
             token = encode_token(user_id: user.id)
             render json: { user: UserSerializer.new(user), jwt: token }, status: :created
         else
-            render json: { error: 'failed to create user', details: user.errors.full_messages }, status: :not_acceptable
+            # Handle specific validation errors
+            if user.errors[:email].include?("has already been taken")
+                render json: { 
+                    error: 'user_exists',
+                    message: 'A user with this email already exists' 
+                }, status: :unprocessable_entity
+            else
+                render json: { 
+                    error: 'validation_failed',
+                    message: 'Failed to create user',
+                    details: user.errors.full_messages 
+                }, status: :unprocessable_entity
+            end
         end
     end
 
