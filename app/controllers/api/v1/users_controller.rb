@@ -16,6 +16,18 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
+        # Validate password confirmation before creating user
+        if user_params[:password] != user_params[:password_confirmation]
+            render json: { error: 'Password and password confirmation do not match' }, status: :unprocessable_entity
+            return
+        end
+        
+        # Validate password length
+        if user_params[:password].length < 6
+            render json: { error: 'Password must be at least 6 characters long' }, status: :unprocessable_entity
+            return
+        end
+        
         user = User.create(user_params)
         if user.valid?
             token = encode_token(user_id: user.id)
