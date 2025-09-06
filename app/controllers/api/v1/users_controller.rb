@@ -16,6 +16,24 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
+        # Check if name is present
+        if user_params[:name].nil? || user_params[:name].empty?
+            render json: { 
+                error: 'name_required',
+                message: 'Name is required' 
+            }, status: :unprocessable_entity
+            return
+        end
+        
+        # Check if email is present
+        if user_params[:email].nil? || user_params[:email].empty?
+            render json: { 
+                error: 'email_required',
+                message: 'Email is required' 
+            }, status: :unprocessable_entity
+            return
+        end
+        
         # Check if password is present
         if user_params[:password].nil? || user_params[:password].empty?
             render json: { 
