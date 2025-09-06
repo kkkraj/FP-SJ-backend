@@ -16,6 +16,12 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
+        # Check if password is present
+        if user_params[:password].nil? || user_params[:password].empty?
+            render json: { error: 'Password is required' }, status: :unprocessable_entity
+            return
+        end
+        
         # Validate password confirmation before creating user
         if user_params[:password] != user_params[:password_confirmation]
             render json: { error: 'Password and password confirmation do not match' }, status: :unprocessable_entity
