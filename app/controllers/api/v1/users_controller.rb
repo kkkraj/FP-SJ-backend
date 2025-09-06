@@ -16,8 +16,14 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
+        # Handle both nested and flat parameter formats
+        name = user_params[:name] || params[:name]
+        email = user_params[:email] || params[:email]
+        password = user_params[:password] || params[:password]
+        password_confirmation = user_params[:password_confirmation] || params[:password_confirmation]
+        
         # Check if name is present
-        if user_params[:name].nil? || user_params[:name].empty?
+        if name.nil? || name.empty?
             render json: { 
                 error: 'name_required',
                 message: 'Name is required' 
@@ -26,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
         end
         
         # Validate name length
-        if user_params[:name].length < 2
+        if name.length < 2
             render json: { 
                 error: 'name_too_short',
                 message: 'Name must be at least 2 characters long' 
@@ -34,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
             return
         end
         
-        if user_params[:name].length > 50
+        if name.length > 50
             render json: { 
                 error: 'name_too_long',
                 message: 'Name must be less than 50 characters' 
@@ -43,7 +49,7 @@ class Api::V1::UsersController < ApplicationController
         end
         
         # Check if email is present
-        if user_params[:email].nil? || user_params[:email].empty?
+        if email.nil? || email.empty?
             render json: { 
                 error: 'email_required',
                 message: 'Email is required' 
@@ -53,7 +59,7 @@ class Api::V1::UsersController < ApplicationController
         
         # Validate email format
         email_regex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-        unless user_params[:email].match?(email_regex)
+        unless email.match?(email_regex)
             render json: { 
                 error: 'invalid_email_format',
                 message: 'Please enter a valid email address' 
@@ -62,7 +68,7 @@ class Api::V1::UsersController < ApplicationController
         end
         
         # Check if password is present
-        if user_params[:password].nil? || user_params[:password].empty?
+        if password.nil? || password.empty?
             render json: { 
                 error: 'password_required',
                 message: 'Password is required' 
@@ -71,7 +77,7 @@ class Api::V1::UsersController < ApplicationController
         end
         
         # Validate password confirmation before creating user
-        if user_params[:password] != user_params[:password_confirmation]
+        if password != password_confirmation
             render json: { 
                 error: 'passwords_dont_match',
                 message: 'Password and password confirmation do not match' 
@@ -80,7 +86,7 @@ class Api::V1::UsersController < ApplicationController
         end
         
         # Validate password length
-        if user_params[:password].length < 6
+        if password.length < 6
             render json: { 
                 error: 'password_too_short',
                 message: 'Password must be at least 6 characters long' 
@@ -88,7 +94,7 @@ class Api::V1::UsersController < ApplicationController
             return
         end
         
-        if user_params[:password].length > 128
+        if password.length > 128
             render json: { 
                 error: 'password_too_long',
                 message: 'Password must be less than 128 characters' 
@@ -96,7 +102,14 @@ class Api::V1::UsersController < ApplicationController
             return
         end
         
-        user = User.create(user_params)
+        # Create user with the extracted parameters
+        user = User.create(
+            name: name,
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation
+        )
+        
         if user.valid?
             token = encode_token(user_id: user.id)
             render json: { user: UserSerializer.new(user), jwt: token }, status: :created
