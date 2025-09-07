@@ -24,6 +24,14 @@ Rails.application.routes.draw do
       resources :user_moods, only: [:index, :show, :create, :update, :destroy]
       resources :user_activities, only: [:index, :show, :create, :update, :destroy]
       resources :diary_photos
+      
+      # New features
+      resources :goals
+      resources :user_goals, only: [:index, :show, :create, :update, :destroy]
+      resources :gratitudes
+      resources :user_gratitudes, only: [:index, :show, :create, :update, :destroy]
+      resources :journal_prompts
+      resources :user_prompt_responses, only: [:index, :show, :create, :update, :destroy]
     end
   end
 

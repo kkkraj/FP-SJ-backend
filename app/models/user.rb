@@ -9,6 +9,12 @@ class User < ApplicationRecord
   has_many :user_activities, dependent: :destroy
   has_many :activities, through: :user_activities
   has_many :diary_photos, dependent: :destroy
+  has_many :user_goals, dependent: :destroy
+  has_many :goals, through: :user_goals
+  has_many :user_gratitudes, dependent: :destroy
+  has_many :gratitudes, through: :user_gratitudes
+  has_many :user_prompt_responses, dependent: :destroy
+  has_many :journal_prompts, through: :user_prompt_responses
   has_one_attached :profile_photo
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }

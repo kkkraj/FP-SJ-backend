@@ -11,6 +11,9 @@
 User.destroy_all
 Mood.destroy_all
 Activity.destroy_all
+Goal.destroy_all
+Gratitude.destroy_all
+JournalPrompt.destroy_all
 
 # Create users with secure passwords (use environment variables in production)
 user1 = User.create(
@@ -52,7 +55,58 @@ activity14 = Activity.create(activity_name: "Kids", activity_url: "https://i.img
 activity15 = Activity.create(activity_name: "Housework", activity_url: "https://i.imgur.com/q08KUEx.png")
 activity16 = Activity.create(activity_name: "Other", activity_url: "https://i.imgur.com/Hc3X0eT.png")
 
+# Create goals
+goals = [
+  { title: "Exercise for 30 minutes", category: "health", description: "Physical activity goal" },
+  { title: "Read for 20 minutes", category: "learning", description: "Reading goal" },
+  { title: "Meditate for 10 minutes", category: "mindfulness", description: "Meditation goal" },
+  { title: "Call a friend", category: "social", description: "Social connection goal" },
+  { title: "Complete work project", category: "work", description: "Work productivity goal" },
+  { title: "Eat 5 servings of vegetables", category: "health", description: "Nutrition goal" },
+  { title: "Get 8 hours of sleep", category: "health", description: "Sleep goal" },
+  { title: "Learn something new", category: "learning", description: "Personal growth goal" }
+]
+
+goals.each do |goal_data|
+  Goal.create(goal_data)
+end
+
+# Create gratitudes
+gratitudes = [
+  { title: "Family support", category: "relationships", description: "Gratitude for family" },
+  { title: "Good health", category: "health", description: "Gratitude for health" },
+  { title: "Job security", category: "work", description: "Gratitude for work" },
+  { title: "Beautiful weather", category: "nature", description: "Gratitude for nature" },
+  { title: "Learning something new", category: "growth", description: "Gratitude for growth" },
+  { title: "Friendship", category: "relationships", description: "Gratitude for friends" },
+  { title: "A safe home", category: "security", description: "Gratitude for shelter" },
+  { title: "Delicious food", category: "comfort", description: "Gratitude for nourishment" }
+]
+
+gratitudes.each do |gratitude_data|
+  Gratitude.create(gratitude_data)
+end
+
+# Create journal prompts
+journal_prompts = [
+  { question: "What was the best part of your day?", category: "reflection", description: "Daily reflection prompt" },
+  { question: "What are you looking forward to tomorrow?", category: "future", description: "Future planning prompt" },
+  { question: "What challenge did you overcome today?", category: "growth", description: "Personal growth prompt" },
+  { question: "How did you show kindness today?", category: "values", description: "Values reflection prompt" },
+  { question: "What made you smile today?", category: "joy", description: "Joy reflection prompt" },
+  { question: "What are you grateful for right now?", category: "gratitude", description: "Gratitude prompt" },
+  { question: "What would you like to improve about yourself?", category: "growth", description: "Self-improvement prompt" },
+  { question: "Describe a moment when you felt proud of yourself.", category: "achievement", description: "Achievement prompt" }
+]
+
+journal_prompts.each do |prompt_data|
+  JournalPrompt.create(prompt_data)
+end
+
 puts "Database seeded successfully!"
 puts "Created #{User.count} users"
 puts "Created #{Mood.count} moods"
 puts "Created #{Activity.count} activities"
+puts "Created #{Goal.count} goals"
+puts "Created #{Gratitude.count} gratitudes"
+puts "Created #{JournalPrompt.count} journal prompts"

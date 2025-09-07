@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_09_05_223158) do
+ActiveRecord::Schema.define(version: 2025_09_07_201147) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -60,6 +60,30 @@ ActiveRecord::Schema.define(version: 2025_09_05_223158) do
     t.index ["user_id"], name: "index_diary_photos_on_user_id"
   end
 
+  create_table "goals", force: :cascade do |t|
+    t.string "title"
+    t.string "category"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "gratitudes", force: :cascade do |t|
+    t.string "title"
+    t.string "category"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "journal_prompts", force: :cascade do |t|
+    t.text "question"
+    t.string "category"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "moods", force: :cascade do |t|
     t.string "mood_name"
     t.string "mood_url"
@@ -76,12 +100,46 @@ ActiveRecord::Schema.define(version: 2025_09_05_223158) do
     t.integer "duration"
   end
 
+  create_table "user_goals", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "goal_id", null: false
+    t.date "date"
+    t.boolean "completed"
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["goal_id"], name: "index_user_goals_on_goal_id"
+    t.index ["user_id"], name: "index_user_goals_on_user_id"
+  end
+
+  create_table "user_gratitudes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "gratitude_id", null: false
+    t.date "date"
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gratitude_id"], name: "index_user_gratitudes_on_gratitude_id"
+    t.index ["user_id"], name: "index_user_gratitudes_on_user_id"
+  end
+
   create_table "user_moods", force: :cascade do |t|
     t.integer "user_id"
     t.integer "mood_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "mood_date"
+  end
+
+  create_table "user_prompt_responses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "journal_prompt_id", null: false
+    t.date "date"
+    t.text "response"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["journal_prompt_id"], name: "index_user_prompt_responses_on_journal_prompt_id"
+    t.index ["user_id"], name: "index_user_prompt_responses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -98,4 +156,10 @@ ActiveRecord::Schema.define(version: 2025_09_05_223158) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "diary_photos", "diary_entries"
   add_foreign_key "diary_photos", "users"
+  add_foreign_key "user_goals", "goals"
+  add_foreign_key "user_goals", "users"
+  add_foreign_key "user_gratitudes", "gratitudes"
+  add_foreign_key "user_gratitudes", "users"
+  add_foreign_key "user_prompt_responses", "journal_prompts"
+  add_foreign_key "user_prompt_responses", "users"
 end
