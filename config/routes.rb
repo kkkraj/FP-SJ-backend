@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       post '/signup', to: 'users#create'  # Add explicit signup route
       post '/forgot_password', to: 'users#forgot_password'
       get '/current_user', to: 'users#profile'
+      post '/users/upload_photo', to: 'users#upload_photo'
+      delete '/users/delete_photo', to: 'users#delete_photo'
+      patch '/users/update_password', to: 'users#update_password'
+      patch '/update_password', to: 'users#update_password'  # Alternative route for frontend
       
       # Resources
       resources :users, only: [:index, :show, :create, :update, :destroy]

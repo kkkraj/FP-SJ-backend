@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :user_activities, dependent: :destroy
   has_many :activities, through: :user_activities
   has_many :diary_photos, dependent: :destroy
+  has_one_attached :profile_photo
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
