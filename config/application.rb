@@ -1,9 +1,5 @@
 require_relative 'boot'
 
-# Explicitly require logger gem for Ruby 3.2.0 compatibility - Heroku fix
-require 'logger'
-require 'logger/severity'
-
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"

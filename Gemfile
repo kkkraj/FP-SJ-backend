@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.0'
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
@@ -57,13 +57,12 @@ group :development, :test do
   # gem 'faker', '~> 3.2.0'
 end
 
-# Listen gem needed for file watching
-gem 'listen', '~> 3.2'
-
 group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Listen gem needed for file watching
+  gem 'listen', '~> 3.2'
   # Code quality tools (commented out for Ruby 2.6.1 compatibility)
   # gem 'rubocop', '~> 1.57.0', require: false
   # gem 'rubocop-rails', '~> 2.20.0', require: false
