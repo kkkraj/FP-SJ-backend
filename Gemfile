@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.2'
+ruby '3.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
@@ -19,9 +19,8 @@ gem 'puma', '~> 4.3.5'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Ruby 3.4.4 compatibility
+# Ruby compatibility gems
 gem 'mutex_m'
-gem 'logger'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
