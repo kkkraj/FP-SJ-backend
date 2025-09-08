@@ -66,7 +66,7 @@ class Api::V1::UserGoalsController < ApplicationController
     end
     
     user_goal.destroy
-    head :no_content
+    render json: { message: 'Goal deleted successfully' }, status: :ok
   end
 
   private
