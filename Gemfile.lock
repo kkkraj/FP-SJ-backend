@@ -106,7 +106,7 @@ GEM
     nokogiri (1.13.10)
       racc (~> 1.4)
     pg (1.5.9)
-    puma (4.3.12)
+    puma (4.3.5)
     racc (1.8.1)
     rack (2.2.17)
     rack-cors (1.1.1)
