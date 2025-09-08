@@ -1,5 +1,8 @@
 require_relative 'boot'
 
+# Explicitly require logger gem for Ruby 3.2.0 compatibility
+require 'logger'
+
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
