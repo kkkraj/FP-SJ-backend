@@ -1,4 +1,4 @@
-class Api::V1::GratitudesController < ApplicationController
+class GratitudesController < ApplicationController
   before_action :authorized
 
   def index

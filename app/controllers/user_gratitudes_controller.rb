@@ -1,4 +1,4 @@
-class Api::V1::UserGratitudesController < ApplicationController
+class UserGratitudesController < ApplicationController
   before_action :authorized
 
   def index
@@ -15,8 +15,23 @@ class Api::V1::UserGratitudesController < ApplicationController
   end
 
   def create
-    user_gratitude = UserGratitude.new(user_gratitude_params)
-    user_gratitude.user_id = current_user.id
+    # Handle both nested and flat parameter formats
+    gratitude_id = user_gratitude_params[:gratitude_id] || params[:gratitude_id]
+    date = user_gratitude_params[:date] || params[:date] || Date.current
+    notes = user_gratitude_params[:notes] || params[:notes]
+    
+    # Validate required fields
+    if gratitude_id.nil?
+      render json: { error: 'gratitude_id_required', message: 'Gratitude ID is required' }, status: :unprocessable_entity
+      return
+    end
+    
+    user_gratitude = UserGratitude.new(
+      user_id: current_user.id,
+      gratitude_id: gratitude_id,
+      date: date,
+      notes: notes
+    )
     
     if user_gratitude.save
       render json: user_gratitude, serializer: UserGratitudeSerializer, status: :created
@@ -55,6 +70,11 @@ class Api::V1::UserGratitudesController < ApplicationController
   private
 
   def user_gratitude_params
-    params.require(:user_gratitude).permit(:gratitude_id, :date, :notes)
+    # Handle both nested and flat parameter formats
+    if params[:user_gratitude].present?
+      params.require(:user_gratitude).permit(:gratitude_id, :date, :notes, :user_id)
+    else
+      params.permit(:gratitude_id, :date, :notes, :user_id)
+    end
   end
 end
