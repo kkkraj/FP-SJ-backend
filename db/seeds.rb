@@ -57,14 +57,14 @@ activity16 = Activity.create(activity_name: "Other", activity_url: "https://i.im
 
 # Create goals
 goals = [
-  { title: "Exercise for 30 minutes", category: "health", description: "Physical activity goal" },
-  { title: "Read for 20 minutes", category: "learning", description: "Reading goal" },
-  { title: "Meditate for 10 minutes", category: "mindfulness", description: "Meditation goal" },
-  { title: "Call a friend", category: "social", description: "Social connection goal" },
-  { title: "Complete work project", category: "work", description: "Work productivity goal" },
-  { title: "Eat 5 servings of vegetables", category: "health", description: "Nutrition goal" },
-  { title: "Get 8 hours of sleep", category: "health", description: "Sleep goal" },
-  { title: "Learn something new", category: "learning", description: "Personal growth goal" }
+  { goal_text: "Exercise for 30 minutes", category: "health", description: "Physical activity goal" },
+  { goal_text: "Read for 20 minutes", category: "learning", description: "Reading goal" },
+  { goal_text: "Meditate for 10 minutes", category: "mindfulness", description: "Meditation goal" },
+  { goal_text: "Call a friend", category: "social", description: "Social connection goal" },
+  { goal_text: "Complete work project", category: "work", description: "Work productivity goal" },
+  { goal_text: "Eat 5 servings of vegetables", category: "health", description: "Nutrition goal" },
+  { goal_text: "Get 8 hours of sleep", category: "health", description: "Sleep goal" },
+  { goal_text: "Learn something new", category: "learning", description: "Personal growth goal" }
 ]
 
 goals.each do |goal_data|

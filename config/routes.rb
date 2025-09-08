@@ -42,4 +42,10 @@ Rails.application.routes.draw do
   resources :user_moods
   resources :diary_entries
   resources :diary_photos
+  resources :goals
+  resources :user_goals
+  resources :gratitudes
+  resources :user_gratitudes
+  resources :journal_prompts
+  resources :user_prompt_responses
 end

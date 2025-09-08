@@ -1,4 +1,4 @@
-class Api::V1::GoalsController < ApplicationController
+class GoalsController < ApplicationController
   before_action :authorized
 
   def index
