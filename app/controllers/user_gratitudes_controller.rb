@@ -17,19 +17,31 @@ class UserGratitudesController < ApplicationController
   def create
     # Handle both nested and flat parameter formats
     gratitude_id = user_gratitude_params[:gratitude_id] || params[:gratitude_id]
+    gratitude_text = user_gratitude_params[:gratitude_text] || params[:gratitude_text]
     date = user_gratitude_params[:date] || params[:date] || Date.current
     notes = user_gratitude_params[:notes] || params[:notes]
     
-    # Validate required fields
-    if gratitude_id.nil?
-      render json: { error: 'gratitude_id_required', message: 'Gratitude ID is required' }, status: :unprocessable_entity
+    # Validate required fields - either gratitude_id or gratitude_text must be provided
+    if gratitude_id.nil? && (gratitude_text.nil? || gratitude_text.empty?)
+      render json: { error: 'gratitude_required', message: 'Either gratitude_id or gratitude_text is required' }, status: :unprocessable_entity
       return
     end
     
-    # Check if gratitude exists
-    unless Gratitude.exists?(gratitude_id)
-      render json: { error: 'gratitude_not_found', message: 'Gratitude not found' }, status: :unprocessable_entity
-      return
+    # If gratitude_text is provided, create a custom gratitude
+    if gratitude_text.present?
+      # Create a custom gratitude entry
+      custom_gratitude = Gratitude.create(
+        title: gratitude_text,
+        category: 'custom',
+        description: "Custom gratitude created by user"
+      )
+      gratitude_id = custom_gratitude.id
+    else
+      # Check if predefined gratitude exists
+      unless Gratitude.exists?(gratitude_id)
+        render json: { error: 'gratitude_not_found', message: 'Gratitude not found' }, status: :unprocessable_entity
+        return
+      end
     end
     
     user_gratitude = UserGratitude.new(
@@ -78,9 +90,9 @@ class UserGratitudesController < ApplicationController
   def user_gratitude_params
     # Handle both nested and flat parameter formats
     if params[:user_gratitude].present?
-      params.require(:user_gratitude).permit(:gratitude_id, :date, :notes, :user_id)
+      params.require(:user_gratitude).permit(:gratitude_id, :gratitude_text, :date, :notes, :user_id)
     else
-      params.permit(:gratitude_id, :date, :notes, :user_id)
+      params.permit(:gratitude_id, :gratitude_text, :date, :notes, :user_id)
     end
   end
 end
