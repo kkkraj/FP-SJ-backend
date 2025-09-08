@@ -26,6 +26,12 @@ class UserGratitudesController < ApplicationController
       return
     end
     
+    # Check if gratitude exists
+    unless Gratitude.exists?(gratitude_id)
+      render json: { error: 'gratitude_not_found', message: 'Gratitude not found' }, status: :unprocessable_entity
+      return
+    end
+    
     user_gratitude = UserGratitude.new(
       user_id: current_user.id,
       gratitude_id: gratitude_id,
