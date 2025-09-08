@@ -6,10 +6,10 @@ ruby '2.6.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 # Use postgresql as the database for Active Record
-# gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '>= 0.18', '< 2.0'
 
-# Use sqlite3 as the database for Active Record (for quick setup)
-gem 'sqlite3', '~> 1.4'
+# Use sqlite3 as the database for Active Record (for development only)
+gem 'sqlite3', '~> 1.4', group: :development
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -36,6 +36,9 @@ gem 'active_model_serializers', '~> 0.10.10'
 
 # Environment variables management
 gem 'figaro', '~> 1.2'
+
+# Production gems
+gem 'rails_12factor', group: :production
 
 # Security and audit tools (commented out for Ruby 2.6.1 compatibility)
 # gem 'bundle-audit', '~> 0.9.0.1', group: [:development, :test]

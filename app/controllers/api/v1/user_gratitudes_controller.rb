@@ -27,17 +27,8 @@ class Api::V1::UserGratitudesController < ApplicationController
       return
     end
     
-    # If gratitude_text is provided, create a custom gratitude
-    if gratitude_text.present?
-      # Create a custom gratitude entry
-      custom_gratitude = Gratitude.create(
-        title: gratitude_text,
-        category: 'custom',
-        description: "Custom gratitude created by user"
-      )
-      gratitude_id = custom_gratitude.id
-    else
-      # Check if predefined gratitude exists
+    # If gratitude_id is provided, check if it exists
+    if gratitude_id.present?
       unless Gratitude.exists?(gratitude_id)
         render json: { error: 'gratitude_not_found', message: 'Gratitude not found' }, status: :unprocessable_entity
         return
@@ -47,6 +38,7 @@ class Api::V1::UserGratitudesController < ApplicationController
     user_gratitude = UserGratitude.new(
       user_id: current_user.id,
       gratitude_id: gratitude_id,
+      gratitude_text: gratitude_text,
       date: date,
       notes: notes
     )
