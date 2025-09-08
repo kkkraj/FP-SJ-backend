@@ -192,6 +192,7 @@ DEPENDENCIES
   figaro (~> 1.2)
   jwt (~> 2.2)
   listen (~> 3.2)
+  logger
   mutex_m
   pg (>= 0.18, < 2.0)
   puma (~> 4.3.5)

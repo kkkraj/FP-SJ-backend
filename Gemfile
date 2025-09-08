@@ -21,6 +21,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Ruby 3.4.4 compatibility
 gem 'mutex_m'
+gem 'logger'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
