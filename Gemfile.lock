@@ -181,7 +181,7 @@ DEPENDENCIES
   jwt (~> 2.2)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
-  puma (~> 4.1)
+  puma (~> 4.3.5)
   rack-cors
   rails (~> 6.0.3, >= 6.0.3.2)
   rails_12factor
