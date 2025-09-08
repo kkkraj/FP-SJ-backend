@@ -15,8 +15,25 @@ class UserGoalsController < ApplicationController
   end
 
   def create
-    user_goal = UserGoal.new(user_goal_params)
-    user_goal.user_id = current_user.id
+    # Handle both nested and flat parameter formats
+    goal_text = user_goal_params[:goal_text] || params[:goal_text]
+    date = user_goal_params[:date] || params[:date] || Date.current
+    completed = user_goal_params[:completed] || params[:completed] || false
+    notes = user_goal_params[:notes] || params[:notes]
+    
+    # Validate required fields
+    if goal_text.nil? || goal_text.empty?
+      render json: { error: 'goal_text_required', message: 'Goal text is required' }, status: :unprocessable_entity
+      return
+    end
+    
+    user_goal = UserGoal.new(
+      user_id: current_user.id,
+      goal_text: goal_text,
+      date: date,
+      completed: completed,
+      notes: notes
+    )
     
     if user_goal.save
       render json: user_goal, serializer: UserGoalSerializer, status: :created
@@ -55,6 +72,11 @@ class UserGoalsController < ApplicationController
   private
 
   def user_goal_params
-    params.require(:user_goal).permit(:goal_id, :goal_text, :date, :completed, :notes)
+    # Handle both nested and flat parameter formats
+    if params[:user_goal].present?
+      params.require(:user_goal).permit(:goal_id, :goal_text, :date, :completed, :notes, :user_id)
+    else
+      params.permit(:goal_id, :goal_text, :date, :completed, :notes, :user_id)
+    end
   end
 end
